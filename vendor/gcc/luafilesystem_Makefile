@@ -1,0 +1,16 @@
+# $Id: Makefile,v 1.36 2009/09/21 17:02:44 mascarenhas Exp $
+
+T= lfs
+PREFIX=/usr/local
+WARN= -O2 -fPIC -Wall -W -Waggregate-return -Wcast-align -Wmissing-prototypes -Wnested-externs -Wshadow -Wwrite-strings
+INCS= -I../lua-5.1.4/src
+CFLAGS= $(WARN) $(INCS)
+CC= gcc
+SRCS= src/$T.c
+OBJS= src/$T.o
+
+all: $(OBJS)
+	cp src/$(T).o src/lib$(T).a
+
+.c.o:
+	$(CC) $(CFLAGS) -c $< -o $@

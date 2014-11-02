@@ -1,0 +1,44 @@
+COMMONHEADS=.\src\lpopup.h .\src\lp_constants.h .\src\lp_lua.h .\src\lp_platform.h .\src\lp_platform_win.h .\src\lp_resource.h .\src\lp_utils.h
+COMMONSRCS=.\src\lp_lua.cpp .\src\lp_platform_win.cpp .\src\lp_utils.cpp
+COMMONOBJS=$(COMMONSRCS:.cpp=.obj) src\lp_resource.res
+
+MAINPACKAGE=bin\lpopup.exe
+MAINHEADS=$(COMMONHEADS)
+MAINSRCS=$(COMMONSRCS) src\lpopup.cpp
+MAINOBJS=$(COMMONOBJS) $(MAINSRCS:.cpp=.obj)
+
+DEBUG=/DEBUG
+LUA_DIR=.\vendor\vs\lua-5.1.4
+LUA_FILESYSTEM_DIR=.\vendor\vs\luafilesystem-1.5.0
+LUA_BITOP_DIR=.\vendor\vs\LuaBitOp-1.0.2
+
+CC=cl
+LD=link
+WINDRES=rc
+
+CPPFLAGS=/I.\src /I$(LUA_DIR)\src /I$(LUA_DIR)\etc /I$(LUA_FILESYSTEM_DIR)\src /I$(LUA_BITOP_DIR) /DUNICODE /D_UNICODE /MT /c $(DEBUG) /O2 /EHsc
+LDFLAGS=$(LUA_DIR)\vs\lib\lua.lib $(LUA_FILESYSTEM_DIR)\src\lfs.obj $(LUA_BITOP_DIR)\bit.obj gdi32.lib user32.lib shell32.lib shlwapi.lib ole32.lib comctl32.lib
+
+.SUFFIXES: .obj .cpp .rc .res
+.PHONY: clean
+
+all: $(MAINPACKAGE)
+
+$(MAINPACKAGE): $(MAINOBJS)
+	$(LD) $** $(LDFLAGS) /OUT:$@ 
+
+$(MAINOBJS): $(MAINHEADS)
+
+.cpp.obj:
+	$(CC) $(CPPFLAGS) $< /Fo$@
+
+.rc.res:
+	$(WINDRES) $<
+
+dist: 
+	nmake /F nMakefile "DEBUG=" all
+
+clean:
+	del src\*.obj
+	del src\*.res
+	del bin\lpopup.exe

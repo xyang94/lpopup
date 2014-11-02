@@ -1,0 +1,13 @@
+T=bit
+WARN= -O2 -fPIC -Wall -W -Waggregate-return -Wcast-align -Wmissing-prototypes -Wnested-externs -Wshadow -Wwrite-strings
+INCS= -I../lua-5.1.4/src
+CFLAGS= $(WARN) $(INCS)
+CC= gcc
+SRCS= $T.c
+OBJS= $T.o
+
+all: $(OBJS)
+	cp $(T).o lib$(T).a
+
+.c.o:
+	$(CC) $(CFLAGS) -c $< -o $@
