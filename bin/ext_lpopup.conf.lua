@@ -17,7 +17,7 @@ function lpopup_execute(argv)
         {"--------------"},
         {"context", const.NATIVE_CONTEXT_MENU, {icon=const.DIRICON}},
         {argv[1], function()
-          lpopup.shell_execute(argv[1])
+          lpopup.shell_execute([["]]..argv[1]..[["]])
         end, {icon=argv[1]}}
       },
       [".directory"] = {
