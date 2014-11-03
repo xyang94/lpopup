@@ -47,7 +47,7 @@ lpopup.root_menu = function() -- {{{
 end -- }}}
 
 lpopup.options = function(defaults,_opts) -- {{{
-  local options = #_opts>0 and _ops or {}
+  local options = #_opts>0 and _opts[1] or {}
   for k, v in pairs(options) do
     defaults[k] = v
   end
