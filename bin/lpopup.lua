@@ -361,7 +361,7 @@ lpopup.apps.launcher = function(argv, cnf) -- {{{
 
   local rootdir = cnf.rootdir
   local root = lpopup.root_menu()
-  walkdir(root, rootdir)
+  walkdir(root, lpopup.utf82local(rootdir))
   root:show(unpack(cnf.system.show))
 
 end -- }}}
