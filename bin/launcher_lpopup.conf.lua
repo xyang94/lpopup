@@ -12,6 +12,6 @@ function lpopup_execute(argv)
       icon = true,
     },
 
-    rootdir = lfs.currentdir() .. [[\data]]
+    rootdir = lpopup.local2utf8(lfs.currentdir()) .. [[\data]]
   })
 end

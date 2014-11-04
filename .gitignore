@@ -36,3 +36,5 @@ vendor/vs/*/
 
 # temp data
 bin/data
+.venv
+*.pyc
