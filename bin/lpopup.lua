@@ -276,7 +276,7 @@ lpopup.apps.ext = function(argv, cnf) -- {{{
 
   local function menu_type()
     local path  = string.gsub(argv[1], [[^(.*)%]]..lpopup.PATHSEP..[[$]], "%1")
-    local fso   = lfs.attributes(path)
+    local fso   = lfs.attributes(lpopup.utf82local(path))
 
     if fso ~= nil then 
       if fso.mode == "directory" then
