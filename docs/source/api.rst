@@ -18,8 +18,10 @@ lpopupは内部的にutf8で処理を行っています。そのためAPIでや�
 
         function lpopup_execute(argv)
           local root_menu = lpopup.root_menu()
-          -- root_menu.add_item()
-          root_menu.show(lpopup.SHOW_MOUSE, 0, 0)
+          -- root_menu:add_item("label", function() end)
+          -- local submenu = lpopup.Menu.new()
+          -- root_menu:add_submenu("label", submenu)
+          root_menu:show(lpopup.SHOW_MOUSE, 0, 0)
         end
 
 ``lpopup.lua`` 内の ``lpopup.apps.ext`` や ``lpopup.apps.launcher`` も参考にしてください。
@@ -72,6 +74,7 @@ lpopupは内部的にutf8で処理を行っています。そのためAPIでや�
 
    :param string cmd: 実行するコマンドと引数
    :param table  options: 実行オプション。以下のオプションが存在します。
+
        - ``workdir:string`` 実行ディレクトリ、デフォルトはコマンドと同じディレクトリ
    :returns: なし
 

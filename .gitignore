@@ -36,5 +36,7 @@ vendor/vs/*/
 
 # temp data
 bin/data
+docs/build/doctrees
 .venv
 *.pyc
+
