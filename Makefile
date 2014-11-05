@@ -56,13 +56,15 @@ package:
 	   _LP_ARCH=x86_64;                                           \
 	 fi;                                                          \
 	 _LP_VERSION=`grep LP_VERSION src/lp_constants.h | sed -e 's/#define LP_VERSION //' | sed -e 's/"//g'`; \
-	 _LP_PACKAGE_DIR=lpopup-$${_LP_ARCH}-$${_LP_VERSION};                               \
-	 $(MKDIR) $${_LP_PACKAGE_DIR};                                                          \
-	 $(CP) bin/config.lua $${_LP_PACKAGE_DIR};                                              \
-	 $(CP) bin/lpopup.exe $${_LP_PACKAGE_DIR};                                             \
-	 $(CP) -r docs/build/html $${_LP_PACKAGE_DIR}/docs;                                     \
-	 $(RM) $${_LP_PACKAGE_DIR}/docs/.git;                                               \
-	 zip -r lpopup-$${_LP_ARCH}-$${_LP_VERSION}.zip $${_LP_PACKAGE_DIR};                \
+	 _LP_PACKAGE_DIR=lpopup-$${_LP_ARCH}-$${_LP_VERSION};                         \
+	 $(MKDIR) $${_LP_PACKAGE_DIR};                                                \
+	 $(CP) bin/lpopup.lua $${_LP_PACKAGE_DIR};                                    \
+	 $(CP) bin/launcher_lpopup.conf.lua $${_LP_PACKAGE_DIR};                      \
+	 $(CP) bin/ext_lpopup.conf.lua $${_LP_PACKAGE_DIR};                           \
+	 $(CP) bin/lpopup.exe $${_LP_PACKAGE_DIR};                                    \
+	 $(CP) -r docs/build/html $${_LP_PACKAGE_DIR}/docs;                           \
+	 $(RM) $${_LP_PACKAGE_DIR}/docs/.git;                                         \
+	 zip -r lpopup-$${_LP_ARCH}-$${_LP_VERSION}.zip $${_LP_PACKAGE_DIR};          \
 	)
 
 
