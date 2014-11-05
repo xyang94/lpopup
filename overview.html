@@ -1,0 +1,237 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>概要 &mdash; lpopup 0.9.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/haiku.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.9.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="lpopup 0.9.0 documentation" href="index.html" />
+    <link rel="next" title="API" href="api.html" />
+    <link rel="prev" title="lpopupドキュメント" href="index.html" /> 
+  </head>
+  <body>
+      <div class="header"><img class="rightlogo" src="_static/lpopup.png" alt="Logo"/><h1 class="heading"><a href="index.html">
+          <span>lpopup 0.9.0 documentation</span></a></h1>
+        <h2 class="heading"><span>概要</span></h2>
+      </div>
+      <div class="topnav">
+      
+        <p>
+        «&#160;&#160;<a href="index.html">lpopupドキュメント</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="api.html">API</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="id1">
+<h1>概要<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="lpopup">
+<h2>lpopupとは<a class="headerlink" href="#lpopup" title="Permalink to this headline">¶</a></h2>
+<p>lpopupはLua言語でカスタマイズ可能な、汎用ポップアップメニューツールです。デフォルトでは以下のサンプルが含まれています。</p>
+<ul class="simple">
+<li>ポチエスのような、拡張子別で実行プログラムを選択するツール</li>
+</ul>
+<img alt="_images/extselector.jpg" src="_images/extselector.jpg" />
+<ul class="simple">
+<li>ポップアップ型ランチャー</li>
+</ul>
+<img alt="_images/launcher.jpg" src="_images/launcher.jpg" />
+</div>
+<div class="section" id="id2">
+<h2>基本<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h3>設定ファイルの読み込み<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>lpopupは実行ファイル+ <tt class="docutils literal"><span class="pre">.conf.lua</span></tt> という名前のファイルを設定ファイルとして読み込み、実行します。</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">lpopup.exe</span></tt> の場合 <tt class="docutils literal"><span class="pre">lpopup.conf.lua</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">launcher.exe</span></tt> の場合 <tt class="docutils literal"><span class="pre">launcer.conf.lua</span></tt></li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h3>プログラムの実行<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>lpopupは読み込んだ設定ファイルの <tt class="xref lua lua-func docutils literal"><span class="pre">lpopup_execute()</span></tt> 関数を実行します。詳細は <a class="reference internal" href="api.html"><em>API</em></a> を参照してください。</p>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>デフォルトサンプルアプリの設定方法<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id6">
+<h3>拡張子別実行プログラムセレクタ<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>まず、 <tt class="docutils literal"><span class="pre">ext_lpopup.conf.lua</span></tt> を <tt class="docutils literal"><span class="pre">lpopup.conf.lua</span></tt> としてコピーしてください。このファイルの設定内容は以下の通りです。</p>
+<blockquote>
+<div><div class="highlight-lua"><div class="highlight"><pre><span class="kd">local</span> <span class="n">const</span> <span class="o">=</span> <span class="n">lpopup</span><span class="p">.</span><span class="n">apps</span><span class="p">.</span><span class="n">ext_const</span>
+<span class="n">lpopup</span><span class="p">.</span><span class="n">apps</span><span class="p">.</span><span class="n">ext</span><span class="p">(</span><span class="n">argv</span><span class="p">,</span> <span class="p">{</span>
+  <span class="n">system</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="c1">-- 表示位置の設定(タイプ、x座標, y座標)</span>
+    <span class="c1">-- SHOW_MOUSE : マウスカーソルの位置</span>
+    <span class="c1">-- SHOW_COORD:  指定座標</span>
+    <span class="c1">-- SHOW_WINDOW: アクティブウインドウの中央</span>
+    <span class="c1">-- SHOW_CENTER: ウインドウの中央</span>
+    <span class="n">show</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="n">const</span><span class="p">.</span><span class="n">SHOW_MOUSE</span><span class="p">,</span>
+      <span class="mi">0</span><span class="p">,</span>
+      <span class="mi">0</span>
+    <span class="p">},</span>
+
+    <span class="c1">-- アイコンを表示するか</span>
+    <span class="n">icon</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+
+    <span class="c1">-- メニュー表示順序</span>
+    <span class="c1">-- ext: 拡張子別</span>
+    <span class="c1">-- type: タイプ別(フォルダかファイルか)</span>
+    <span class="c1">-- all: 共通</span>
+    <span class="n">order</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;</span><span class="s">ext&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s">type&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s">all&quot;</span><span class="p">}</span>
+  <span class="p">},</span>
+  <span class="c1">-- メニューアイテム定義</span>
+  <span class="n">items</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="c1">-- 共通メニュー</span>
+    <span class="p">[</span><span class="s2">&quot;</span><span class="s">.*&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="p">{</span><span class="s2">&quot;</span><span class="s">--------------&quot;</span><span class="p">},</span>
+      <span class="p">{</span><span class="s2">&quot;</span><span class="s">context&quot;</span><span class="p">,</span> <span class="n">const</span><span class="p">.</span><span class="n">NATIVE_CONTEXT_MENU</span><span class="p">,</span> <span class="p">{</span><span class="n">icon</span><span class="o">=</span><span class="n">const</span><span class="p">.</span><span class="n">DIRICON</span><span class="p">}},</span>
+      <span class="p">{</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="k">function</span><span class="p">()</span>
+        <span class="n">lpopup</span><span class="p">.</span><span class="n">shell_execute</span><span class="p">(</span><span class="s">[[&quot;]]</span><span class="o">..</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">..</span><span class="s">[[&quot;]]</span><span class="p">)</span>
+      <span class="k">end</span><span class="p">,</span> <span class="p">{</span><span class="n">icon</span><span class="o">=</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]}}</span>
+    <span class="p">},</span>
+    <span class="c1">-- フォルダメニュー</span>
+    <span class="p">[</span><span class="s2">&quot;</span><span class="s">.directory&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="p">{</span><span class="s2">&quot;</span><span class="s">explorer&quot;</span><span class="p">,</span> <span class="s">[[C:\Windows\explorer.exe &quot;${1}&quot;]]</span><span class="p">},</span>
+    <span class="p">},</span>
+    <span class="c1">-- ファイルメニュー</span>
+    <span class="p">[</span><span class="s2">&quot;</span><span class="s">.file&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="p">{</span><span class="s2">&quot;</span><span class="s">notepad&quot;</span><span class="p">,</span> <span class="s">[[c:\windows\system32\notepad.exe &quot;${1}&quot;]]</span><span class="p">},</span>
+    <span class="p">},</span>
+    <span class="c1">-- 拡張子別メニュー: ｜区切りで複数書ける</span>
+    <span class="p">[</span><span class="s2">&quot;</span><span class="s">txt|bat&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="p">{</span><span class="s2">&quot;</span><span class="s">notepad&quot;</span><span class="p">,</span> <span class="s">[[c:\windows\system32\notepad.exe &quot;${1}&quot;]]</span><span class="p">},</span>
+      <span class="p">{</span><span class="s2">&quot;</span><span class="s">|&quot;</span><span class="p">},</span>
+      <span class="p">{</span><span class="s2">&quot;</span><span class="s">notepads&quot;</span><span class="p">,</span> <span class="p">{</span>
+          <span class="p">{</span><span class="s2">&quot;</span><span class="s">notepad1&quot;</span><span class="p">,</span> <span class="s">[[c:\windows\system32\notepad.exe &quot;${1}&quot;]]</span><span class="p">},</span>
+          <span class="p">{</span><span class="s2">&quot;</span><span class="s">notepad2&quot;</span><span class="p">,</span> <span class="s">[[c:\windows\system32\notepad.exe &quot;${1}&quot;]]</span><span class="p">},</span>
+      <span class="p">}}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>メニューアイテム定義は以下のいずれかです。</p>
+<ul>
+<li><p class="first"><tt class="docutils literal"><span class="pre">{&quot;---------------&quot;}</span></tt> : 水平セパレータ</p>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">&quot;{&quot;|&quot;}</span></tt> : 垂直セパレータ</p>
+</li>
+<li><dl class="first docutils">
+<dt><tt class="docutils literal"><span class="pre">{&quot;表示名&quot;,</span> <span class="pre">&quot;実行プログラム定義&quot;,</span> <span class="pre">{icon=アイコンファイル}}</span></tt></dt>
+<dd><ul class="first last">
+<li><dl class="first docutils">
+<dt>表示名: メニューに表示される表示名です。以下の特別な値があります。</dt>
+<dd><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">const.BASENAME</span></tt> : ファイル名</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>実行プログラム定義 <span class="classifier-delimiter">:</span> <span class="classifier">実行するプログラム定義です。 <tt class="docutils literal"><span class="pre">${1}</span></tt> はファイルパスに置換されます。以下の特別な値があります。</span></dt>
+<dd><ul class="first last simple">
+<li><tt class="docutils literal"><span class="pre">const.NATIVE_CONTEXT_MENU</span></tt> : OSネイティブの右クリックメニューを表示します。</li>
+<li>Lua関数 : 引数、戻り値ともに空の関数を実行します。</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first">アイコンファイル : デフォルトでは実行プログラム定義から自動でアイコンを表示しますが、手動で指定したい場合、この値にアイコンのパスを入れてください。</p>
+</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="id7">
+<h3>ポップアップランチャー<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>まず、 <tt class="docutils literal"><span class="pre">launcher_lpopup.conf.lua</span></tt> を <tt class="docutils literal"><span class="pre">lpopup.conf.lua</span></tt> としてコピーしてください。このファイルの設定内容は以下の通りです。</p>
+<blockquote>
+<div><div class="highlight-lua"><div class="highlight"><pre><span class="kd">local</span> <span class="n">const</span> <span class="o">=</span> <span class="n">lpopup</span><span class="p">.</span><span class="n">apps</span><span class="p">.</span><span class="n">launcher_const</span>
+<span class="n">lpopup</span><span class="p">.</span><span class="n">apps</span><span class="p">.</span><span class="n">launcher</span><span class="p">(</span><span class="n">argv</span><span class="p">,</span> <span class="p">{</span>
+  <span class="c1">-- ext_lpopup.conf.luaと同じです。</span>
+  <span class="n">system</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">show</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="n">const</span><span class="p">.</span><span class="n">SHOW_MOUSE</span><span class="p">,</span>
+      <span class="mi">0</span><span class="p">,</span>
+      <span class="mi">0</span>
+    <span class="p">},</span>
+    <span class="n">icon</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+  <span class="p">},</span>
+
+  <span class="c1">-- ランチャーデータディレクトリ</span>
+  <span class="n">rootdir</span> <span class="o">=</span> <span class="s">[[data]]</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>このランチャーは、 <tt class="docutils literal"><span class="pre">rootdir</span></tt> 配下のフォルダ構造とショートカットファイル( <tt class="docutils literal"><span class="pre">*.lnk</span></tt> ファイル)を読み込んでメニューを表示します。例えば以下のような構造にします。</p>
+<blockquote>
+<div><div class="code highlight-python"><div class="highlight"><pre>/
+|-  001_Editors
+|        |- vim.lnk
+|        |- notepad.lnk
+|
+|-  002_Browsers
+|        |- firefox.lnk
+|        |- chrome.lnk
+</pre></div>
+</div>
+</div></blockquote>
+<p>メニューは名前でソートされます。また先頭の <tt class="docutils literal"><span class="pre">001_</span></tt> のような数字＋＿は表示上は削除されます。ファイル名が <tt class="docutils literal"><span class="pre">_</span></tt> から始まるファイルは無視されます。</p>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>独自アプリ作成方法<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><a class="reference internal" href="api.html"><em>API</em></a> を参照してください。</div></blockquote>
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav">
+      
+        <p>
+        «&#160;&#160;<a href="index.html">lpopupドキュメント</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Contents</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="api.html">API</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer">
+        &copy; Copyright 2014-2014, Yusuke Inuzuka.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>
